@@ -1,0 +1,2 @@
+const SET_AUTH = "SET_AUTH"
+const CLEAR_AUTH = "CLEAR_AUTH"
