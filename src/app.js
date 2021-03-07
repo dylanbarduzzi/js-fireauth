@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
-import { auth } from "./lib/firebase"
 import { setAuth, unsetAuth } from "./stores/auth/actions"
 import { setUser, unsetUser } from "./stores/user/actions"
+
+import { useListener } from "./lib/hooks"
 
 import HomePage from "./components/HomePage"
 import LoginPage from "./components/LoginPage"
@@ -20,29 +21,19 @@ import {
 } from "./routes/routes"
 
 const App = () => {
-  const [loading, setLoading] = useState(true)
 
+  const user = useListener()
   const dispatch = useDispatch()
-  
-  useEffect(() => {
 
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        dispatch(setAuth())
-        dispatch(setUser(user))
-      } else {
-        dispatch(unsetAuth())
-        dispatch(unsetUser())
-      }
-    })
+  if (user.uid) {
+    dispatch(setAuth())
+    dispatch(setUser(user))
+  } else {
+    dispatch(unsetAuth())
+    dispatch(unsetUser())
+  }
 
-    setLoading(false)
-
-    return unsubscribe
-
-  }, [])
-
-  if (loading) {
+  if (user.loading) {
     return <LoadingPage />
   }
 
