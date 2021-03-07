@@ -8,7 +8,9 @@ import { setUser, unsetUser } from "./stores/user/actions"
 import { useListener } from "./lib/hooks"
 
 import HomePage from "./components/HomePage"
+import AboutPage from "./components/AboutPage"
 import LoginPage from "./components/LoginPage"
+import RegisterPage from "./components/RegisterPage"
 import LoadingPage from "./components/LoadingPage"
 import NotFoundPage from "./components/NotFoundPage"
 
@@ -17,7 +19,9 @@ import PublicRoute from "./routes/PublicRoute"
 
 import {
   HomeRoute,
-  LoginRoute
+  AboutRoute,
+  LoginRoute,
+  RegisterRoute
 } from "./routes/routes"
 
 const App = () => {
@@ -41,7 +45,9 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <PrivateRoute exact={true} path={HomeRoute} component={HomePage} />
+        <PrivateRoute exact={true} path={AboutRoute} component={AboutPage} />
         <PublicRoute exact={true} path={LoginRoute} component={LoginPage} />
+        <PublicRoute exact={true} path={RegisterRoute} component={RegisterPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </BrowserRouter>
