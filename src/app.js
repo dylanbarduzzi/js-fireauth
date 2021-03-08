@@ -2,10 +2,11 @@ import React from "react"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import { useDispatch } from "react-redux"
 
+import { useListener } from "./lib/hooks"
 import { setAuth, unsetAuth } from "./stores/auth/actions"
 import { setUser, unsetUser } from "./stores/user/actions"
 
-import { useListener } from "./lib/hooks"
+import Navbar from "./components/navbar/Navbar"
 
 import HomePage from "./components/HomePage"
 import AboutPage from "./components/AboutPage"
@@ -43,6 +44,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <PrivateRoute exact={true} path={HomeRoute} component={HomePage} />
         <PrivateRoute exact={true} path={AboutRoute} component={AboutPage} />

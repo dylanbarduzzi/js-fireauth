@@ -17,7 +17,20 @@ export const startLogin = (email, password) => dispatch => {
       dispatch(setUser(res.user))
     })
     .catch(err => {
-      console.log(`[ERR] - ${err}`)
+      console.log(`[ERROR] - ${err}`)
+      dispatch(unsetAuth())
+      dispatch(unsetUser())
+    })
+}
+
+export const startLogout = () => dispatch => {
+  auth.signOut()
+    .then(() => {
+      dispatch(unsetAuth())
+      dispatch(unsetUser())
+    })
+    .catch(err => {
+      console.log(`[ERROR] - ${err}`)
       dispatch(unsetAuth())
       dispatch(unsetUser())
     })
